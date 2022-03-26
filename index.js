@@ -33,6 +33,9 @@ export const process = async (input) => {
   // get sentiment
   const sentiment = analyzer.getSentiment([...preparedCorrectedTokens]);
 
+  console.log(sentiment);
+  console.log(preparedCorrectedTokens);
+
   const mc = input.match(/([MC]+\d{6})+/g);
   const containers = input.match(/([A-z]{4}\d{6,7})+/g);
 
@@ -46,7 +49,7 @@ export const process = async (input) => {
 
   const reason = reasonCodes[reasonCode] || null;
 
-  if (sentiment > 0) {
+  if (sentiment === 0 || sentiment > 0.6) {
     approvedContainers.push(...containers.map((container) => ({ container })));
   } else {
     declinedContainers.push(
