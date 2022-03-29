@@ -1,24 +1,23 @@
-import {
-  SentimentAnalyzer,
-  PorterStemmer,
-  Spellcheck,
-  WordTokenizer,
-} from "natural";
+import { Spellcheck, WordTokenizer } from "natural";
 
-const analyzer = new SentimentAnalyzer("English", PorterStemmer, "afinn");
-const tokenizer = new WordTokenizer();
+import { getSentiment } from "./helpers/sentiment";
 
 import { list } from "./helpers/dictionary";
-import reasonCodes from "./constants/reasonCodes";
+import { reasonCodes, excludeWords } from "./constants";
+
+import { differenceWith, isEqual } from "lodash";
 
 import { approved as approvedMock, declined as declinedMock } from "./mocks";
 
 export const process = async (input) => {
+  const tokenizer = new WordTokenizer();
   const corpus = await list();
 
   const tokens = tokenizer
     .tokenize(input.match(/^(.*)$/m)[0])
     .map((token) => token.toLocaleLowerCase());
+
+  // load corpus
   const spellcheck = new Spellcheck(corpus);
 
   // spell corrections
@@ -26,14 +25,10 @@ export const process = async (input) => {
     spellcheck.isCorrect(token) ? token : spellcheck.getCorrections(token, 1)[0]
   );
 
-  const preparedCorrectedTokens = correctedTokens.filter((token) =>
+  const preparedCorrectedTokens = differenceWith(correctedTokens.filter((token) =>
     correctedTokens.includes(token)
-  );
+  ), excludeWords, isEqual);
 
-  // get sentiment
-  const sentiment = analyzer.getSentiment([...preparedCorrectedTokens]);
-
-  console.log(sentiment);
   console.log(preparedCorrectedTokens);
 
   const mc = input.match(/([MC]+\d{6})+/g);
@@ -49,7 +44,7 @@ export const process = async (input) => {
 
   const reason = reasonCodes[reasonCode] || null;
 
-  if (sentiment === 0 || sentiment > 0.6) {
+  if (getSentiment([...preparedCorrectedTokens])) {
     approvedContainers.push(...containers.map((container) => ({ container })));
   } else {
     declinedContainers.push(
