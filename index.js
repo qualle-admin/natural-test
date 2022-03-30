@@ -13,6 +13,7 @@ export const process = async (input) => {
   const tokenizer = new WordTokenizer();
   const corpus = await list();
 
+  // tokenize response
   const tokens = tokenizer
     .tokenize(input.match(/^(.*)$/m)[0])
     .map((token) => token.toLocaleLowerCase());
@@ -25,13 +26,14 @@ export const process = async (input) => {
     spellcheck.isCorrect(token) ? token : spellcheck.getCorrections(token, 1)[0]
   );
 
+  // filter conjunctions
   const preparedCorrectedTokens = differenceWith(correctedTokens.filter((token) =>
     correctedTokens.includes(token)
   ), excludeWords, isEqual);
 
   console.log(preparedCorrectedTokens);
 
-  const mc = input.match(/([MC]+\d{6})+/g);
+  const orgId = input.match(/[0-9a-f]{28}/g)[0];
   const containers = input.match(/([A-z]{4}\d{6,7})+/g);
 
   const approvedContainers = [];
@@ -53,7 +55,7 @@ export const process = async (input) => {
   }
 
   return {
-    mc,
+    orgId,
     approved: [...approvedContainers],
     declined: [...declinedContainers],
   };

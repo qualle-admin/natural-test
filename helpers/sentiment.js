@@ -5,5 +5,7 @@ const analyzer = new SentimentAnalyzer("English", PorterStemmer, "afinn");
 export const getSentiment = (tokens) => {
   const sentiment = analyzer.getSentiment([...tokens]);
 
+  console.log(sentiment);
+
   return sentiment === 0 || sentiment > 0.6;
 };

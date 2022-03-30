@@ -1,8 +1,8 @@
 export default {
-  approved: `Booking confirmed
+  approved: `Approved
   On Mon, Dec 27, 2021 at 7:07 PM <streetturns@qualle.co> wrote:
-  > We are requesting street turns for the following containers under MC:
-  > MC837359
+  > We are requesting street turns for the following containers:
+  >
   > *Booking reference #:* 12345
   > *SCAC: BNLE*
   > BMOU000001
@@ -12,11 +12,12 @@ export default {
   Street Turn Operations
   Customer support requests please email: support@qualle.co
   ---
+  204a2ce6700cfe8c43e05de194bb
   `,
-  declined: `Please correct the booking reference #
+  declined: `Declined. wrong size
   On Mon, Dec 27, 2021 at 7:07 PM <streetturns@qualle.co> wrote:
-  > We are requesting street turns for the following containers under MC:
-  > MC837359
+  > We are requesting street turns for the following containers:
+  >
   > *Booking reference #:* 12345
   > *SCAC: BNLE*
   > BMOU000001
@@ -26,5 +27,6 @@ export default {
   Street Turn Operations
   Customer support requests please email: support@qualle.co
   ---
+  204a2ce6700cfe8c43e05de194bb
   `,
 };
