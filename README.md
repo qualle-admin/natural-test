@@ -6,7 +6,7 @@ A node.js utility for high-performance natural language processing of street tur
 Installation
 ============
 
-    yarn
+    yarn or
     npm install
 
 Usage
