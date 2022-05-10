@@ -1,32 +1,4 @@
 export default {
-  approved: `Approved
-  On Mon, Dec 27, 2021 at 7:07 PM <streetturns@qualle.co> wrote:
-  > We are requesting street turns for the following containers:
-  >
-  > *Booking reference #:* 12345
-  > *SCAC: BNLE*
-  > BMOU000001
-  >
-  --
-  Cheers,
-  Street Turn Operations
-  Customer support requests please email: support@qualle.co
-  ---
-  204a2ce6700cfe8c43e05de194bb
-  `,
-  declined: `Declined. wrong size
-  On Mon, Dec 27, 2021 at 7:07 PM <streetturns@qualle.co> wrote:
-  > We are requesting street turns for the following containers:
-  >
-  > *Booking reference #:* 12345
-  > *SCAC: BNLE*
-  > BMOU000001
-  >
-  --
-  Cheers,
-  Street Turn Operations
-  Customer support requests please email: support@qualle.co
-  ---
-  204a2ce6700cfe8c43e05de194bb
-  `,
+  approved: `Ok to reuse.\nFrom: streetturns@qualle.co [mailto:streetturns@qualle.co]\nSent: Monday, May 9, 2022 12:41 PM\nTo: laxeqc <laxeqc@us.yangming.com>\nSubject: Street Turn Request from United Logistics Services Group\nCAUTION: This email originated from outside the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.\nWe are requesting street turns for the following containers\nBooking reference #: YLX401998\nSCAC: ULSB\nTCNU2448474\n[org: c3877727eb476f4b7b2bb1564411]\n--\nCheers,\n\nStreet Turn Operations\nCustomer support requests please email: support@qualle.co\n---\nTo unsubscribe from this group and stop receiving emails from it, send an email to streetturns+unsubscribe@qualle.co.`,
+  declined: `That booking has been terminated.\n[OOCL_LO]\nRhoda Veran for Alma Gutierrez\nEquipment Department, OOCL (USA) Inc.\nT:( 562)499-2600 option 3, option 2\nE:  LGBEQP@oocl.commailto:LGBEQP@oocl.com W: www.oocl.comhttps://apc01.safelinks.protection.outlook.com/?url=http%3A%2F%2Fwww.oocl.com%2F&data=02%7C01%7Cveronica.flores%40oocl.com%7C1ea3a3b1618a47a4bc7a08d82f524a7f%7C7851b4cc2c5c459f96d916731d6b4ca4%7C0%7C0%7C637311377775126437&sdata=8uzB7mtL7DF%2Bdq4IR5K4nkIR4W%2F2%2B0JRsu1ebLrtOzM%3D&reserved=0\nA: 111 W. Ocean Blvd. Suite 1700, Long Beach, CA 90802\nFrom: streetturns@qualle.co <streetturns@qualle.co>\nSent: Monday, May 9, 2022 6:09 PM\nTo: LGBEQP/LGB Equipment (EQM-OPS-OUI/LGB) <LGBEQP@oocl.com>\nSubject: Street Turn Request from ADP Express Inc\nYou don't often get email from streetturns@qualle.co. Learn why this is importanthttps://aka.ms/LearnAboutSenderIdentification\nCAUTION: This email originated from outside the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.\nWe are requesting street turns for the following containers\nBooking reference #: 2695068581\nSCAC: ADXH\nOOLU4532020\n[org: 6b7dc767ce1cf6545cb94668fbe7]\nDisclaimer : This email and all contents are subject to the following disclaimer: http://emaildisclaimer.oocl.com/default.html\n--\nCheers,\n\nStreet Turn Operations\nCustomer support requests please email: support@qualle.co`,
 };

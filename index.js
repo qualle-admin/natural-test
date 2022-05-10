@@ -3,7 +3,7 @@ import { Spellcheck, WordTokenizer } from "natural";
 import { getSentiment } from "./helpers/sentiment";
 
 import { list } from "./helpers/dictionary";
-import { reasonCodes, excludeWords } from "./constants";
+import { includeWords, excludeWords } from "./constants";
 
 import { differenceWith, isEqual } from "lodash";
 
@@ -13,10 +13,14 @@ export const process = async (input) => {
   const tokenizer = new WordTokenizer();
   const corpus = await list();
 
+  // body context
+  const bodyContext = input.match(/(.+)((\r?\n.+)*){1}/m)[0];
+
   // tokenize response
   const tokens = tokenizer
-    .tokenize(input.match(/^(.*)$/m)[0])
-    .map((token) => token.toLocaleLowerCase());
+    .tokenize(bodyContext)
+    .map((token) => token.toLocaleLowerCase())
+    .filter(token => isNaN(token) && includeWords.includes(token));
 
   // load corpus
   const spellcheck = new Spellcheck(corpus);
@@ -31,26 +35,29 @@ export const process = async (input) => {
     correctedTokens.includes(token)
   ), excludeWords, isEqual);
 
+  const orgId = input.match(/(?!\[[org\:]\s)[0-9a-f]{28}(?=\])/g)[0];
+  const containers = input.match(/([A-z]{4}\d{6,7})+/g);
+
   console.log(preparedCorrectedTokens);
 
-  const orgId = input.match(/[0-9a-f]{28}/g)[0];
-  const containers = input.match(/([A-z]{4}\d{6,7})+/g);
+  // filter duplicate containers
+  const filteredContainers = containers
+    .filter((container, index) =>
+      !containers.includes(container, index + 1));
 
   const approvedContainers = [];
   const declinedContainers = [];
 
-  // reason code
-  const reasonCode = Object.keys(reasonCodes).filter((r) =>
-    preparedCorrectedTokens.includes(r)
-  )[0];
+  const reasonCode = new RegExp(`.*(${includeWords.join('|')}).[^\\\n]*`, 'i')
+  const reason = String(bodyContext.match(reasonCode)[0]).replace(/\n/g, '').trim();
 
-  const reason = reasonCodes[reasonCode] || null;
+  // console.log('reasonCode: ', reasonCode);
 
   if (getSentiment([...preparedCorrectedTokens])) {
-    approvedContainers.push(...containers.map((container) => ({ container })));
+    approvedContainers.push(...filteredContainers.map((container) => ({ container })));
   } else {
     declinedContainers.push(
-      ...containers.map((container) => ({ container, reason }))
+      ...filteredContainers.map((container) => ({ container, reason }))
     );
   }
 

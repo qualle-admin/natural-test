@@ -7,5 +7,5 @@ export const getSentiment = (tokens) => {
 
   console.log(sentiment);
 
-  return sentiment === 0 || sentiment > 0.6;
+  return sentiment > 0;
 };
